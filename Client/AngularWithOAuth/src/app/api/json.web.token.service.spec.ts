@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { JwtService } from './jwt.service';
+import { JwtService } from './json.web.token.service';
 
 describe('JwtService', () => {
   beforeEach(() => {

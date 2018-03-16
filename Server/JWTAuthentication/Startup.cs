@@ -32,7 +32,8 @@ namespace JWTAuthentication
                 {
                     bldr.AllowAnyHeader()
                         .AllowAnyMethod()
-                        .WithOrigins("http://localhost:4200");
+                        .WithOrigins("http://localhost:4200")
+                        .WithExposedHeaders("authorization");
                 });
                 cfg.AddPolicy("MyCrazyGetPolicy", bldr =>
                 {

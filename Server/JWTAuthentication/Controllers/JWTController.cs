@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using JWTAuthentication.Filters;
 using JWTAuthentication.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -19,7 +20,9 @@ namespace JWTAuthentication.Controllers
     [Route("api/JWT")]
     public class JWTController : Controller
     {
+        [EnableCors("MyAngularAppPolicy")]
         [Authorize(Roles ="King")]
+        [ResponseAuthorizationHeaderFilter]
         [HttpGet("Test")]
         public IActionResult Test()
         {

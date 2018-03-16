@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
-import { MyHttpInterceptor } from './MyHttpInterceptor'
-import { AuthService } from './api/auth-service.service';
+import { HttpAuthorizationInterceptor } from './authorization/HttpAuthorizationInterceptor'
 import { LoginComponent } from './login/login.component'
-import { JwtService } from './api/jwt.service';
+import { JwtService } from './api/json.web.token.service';
+import { LocalStringStorageService } from './common/local-string-storage.service';
+import { TokenManagerService } from './common/token.manager.service';
 
 
 @NgModule({
@@ -22,10 +23,11 @@ import { JwtService } from './api/jwt.service';
   providers: [
     HttpClientModule,
     JwtService,
-    AuthService,
+    TokenManagerService,
+    LocalStringStorageService,
     { 
         provide: HTTP_INTERCEPTORS, 
-        useClass: MyHttpInterceptor, 
+        useClass: HttpAuthorizationInterceptor, 
         multi: true 
     }
     ],
