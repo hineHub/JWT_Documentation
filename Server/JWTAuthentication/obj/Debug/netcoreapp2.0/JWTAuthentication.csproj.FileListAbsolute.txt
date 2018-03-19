@@ -14,9 +14,9 @@ C:\Users\philip.hine\source\JWT_GitHub\Server\JWTAuthentication\bin\Debug\netcor
 C:\Users\philip.hine\source\JWT_GitHub\Server\JWTAuthentication\bin\Debug\netcoreapp2.0\JWTAuthentication.runtimeconfig.dev.json
 C:\Users\philip.hine\source\JWT_GitHub\Server\JWTAuthentication\bin\Debug\netcoreapp2.0\JWTAuthentication.dll
 C:\Users\philip.hine\source\JWT_GitHub\Server\JWTAuthentication\bin\Debug\netcoreapp2.0\JWTAuthentication.pdb
-C:\Users\philip.hine\source\JWT_GitHub\Server\JWTAuthentication\obj\Debug\netcoreapp2.0\JWTAuthentication.csprojResolveAssemblyReference.cache
 C:\Users\philip.hine\source\JWT_GitHub\Server\JWTAuthentication\obj\Debug\netcoreapp2.0\JWTAuthentication.csproj.CoreCompileInputs.cache
 C:\Users\philip.hine\source\JWT_GitHub\Server\JWTAuthentication\obj\Debug\netcoreapp2.0\JWTAuthentication.AssemblyInfoInputs.cache
 C:\Users\philip.hine\source\JWT_GitHub\Server\JWTAuthentication\obj\Debug\netcoreapp2.0\JWTAuthentication.AssemblyInfo.cs
 C:\Users\philip.hine\source\JWT_GitHub\Server\JWTAuthentication\obj\Debug\netcoreapp2.0\JWTAuthentication.dll
 C:\Users\philip.hine\source\JWT_GitHub\Server\JWTAuthentication\obj\Debug\netcoreapp2.0\JWTAuthentication.pdb
+C:\Users\philip.hine\source\JWT_GitHub\Server\JWTAuthentication\obj\Debug\netcoreapp2.0\JWTAuthentication.csprojResolveAssemblyReference.cache

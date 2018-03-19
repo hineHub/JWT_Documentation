@@ -11,9 +11,9 @@ export class TokenManagerService
     constructor(private _localStorageService : LocalStringStorageService) {
         
     }
-
+//***MAYBE ADD CACHING, IN CASE SOMEONE WIPES THE SESSION */
     getToken(): IJsonWebToken {
-        let token : string = this._localStorageService.get(this.key);
+        let token : string = "bearer " + this._localStorageService.get(this.key);
 
         return token != null ? new JsonWebToken(token) : null;
     }    
@@ -21,6 +21,13 @@ export class TokenManagerService
     saveToken(token : IJsonWebToken): void {
         this._localStorageService.set(this.key, token.token);
     }   
+
+    saveRawToken(raw : string): void {
+        let token = raw.replace("bearer ", "");
+        let jwt = new JsonWebToken(token);
+
+        this.saveToken(jwt);
+    } 
 
     removeToken()
     {

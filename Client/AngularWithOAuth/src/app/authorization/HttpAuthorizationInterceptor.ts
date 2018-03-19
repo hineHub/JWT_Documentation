@@ -16,7 +16,7 @@ export class HttpAuthorizationInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         let authReq = this.addAuthorizationHeader(req);
-
+        console.log(this.getCookie("XSRF-TOKEN"));
         //send the request clone
         return next.handle(authReq)
             .do((event: HttpEvent<any>) => {
@@ -37,9 +37,7 @@ export class HttpAuthorizationInterceptor implements HttpInterceptor {
     addAuthorizationHeader(authReq: HttpRequest<any>): HttpRequest<any>{        
         if (this.hasExistingToken())
         {
-            let token = "bearer " + this._tokenManagerService.getToken().token;
-            
-            //clone and append authorization
+            let token = this._tokenManagerService.getToken().token;
             authReq = authReq.clone({ headers: authReq.headers.set('authorization', token) });
         }
 
@@ -47,13 +45,11 @@ export class HttpAuthorizationInterceptor implements HttpInterceptor {
     }
 
     captureRefreshToken(response : HttpResponse<any>){
+        console.log(response.headers.keys());
         if (response.headers.has("authorization"))
         {
-            let token = response.headers.get("authorization").toString().replace("bearer ", "");
-            let jwt = new JsonWebToken(token);
-        
-            this._tokenManagerService.saveToken(jwt);
-            console.log("refresh token saved");
+            let token = response.headers.get("authorization").toString();
+            this._tokenManagerService.saveRawToken(token);
         }
     }
 
@@ -63,4 +59,21 @@ export class HttpAuthorizationInterceptor implements HttpInterceptor {
 
         return token != null;
     }
+
+    getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
 }

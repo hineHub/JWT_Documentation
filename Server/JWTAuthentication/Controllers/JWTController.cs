@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JWTAuthentication.Filters;
 using JWTAuthentication.Model;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -20,6 +21,13 @@ namespace JWTAuthentication.Controllers
     [Route("api/JWT")]
     public class JWTController : Controller
     {
+        private readonly ITokenGenerator _tokenGenerator;
+
+        public JWTController(ITokenGenerator tokenGenerator)
+        {
+            _tokenGenerator = tokenGenerator;
+        }
+
         [EnableCors("MyAngularAppPolicy")]
         [Authorize(Roles ="King")]
         [ResponseAuthorizationHeaderFilter]
@@ -34,39 +42,27 @@ namespace JWTAuthentication.Controllers
         [HttpPost("Token")]
         public IActionResult RequestToken([FromBody] TokenRequest request)
         {
+            var _tokenGenerator = new TokenGenerator();
+
             if (ModelState.IsValid)
             {
-                string userRole = request.UserName == "Bill" ? "King" : "Pauper";
-
-
-            if (request.Password == "Again, not for production use, DEMO ONLY!")
+                if (ValidCredentials(request))
                 {
-                    var claims = new[]
-                    {
-                        new Claim(ClaimTypes.Name, request.UserName),
-                        new Claim(ClaimTypes.Role, userRole)
-                    };
-
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySuperSecureKey"));
-                    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-                    var token = new JwtSecurityToken(
-                        issuer: "yourdomain.com",
-                        audience: "yourdomain.com",
-                        claims: claims,
-                        expires: DateTime.Now.AddSeconds(10),
-                        signingCredentials: creds);
+                    var tokenVal = _tokenGenerator.Generate(request.UserName);
 
                     return Ok(new
                     {
-                        token = new JwtSecurityTokenHandler().WriteToken(token)
+                        token = tokenVal
                     });
                 }
-
-                
             }
 
             return BadRequest("Could not verify username and password");
+        }
+
+        private bool ValidCredentials(TokenRequest request)
+        {
+            return request.Password == "Again, not for production use, DEMO ONLY!";
         }
 
     }
