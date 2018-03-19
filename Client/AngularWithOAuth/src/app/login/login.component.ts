@@ -35,6 +35,10 @@ export class LoginComponent implements OnInit {
         );
   }
 
+  onLogout(): void {
+    this._tokenService.removeToken();
+  }
+
   getData(): void {
     this._message = "";
 
@@ -73,7 +77,7 @@ export class LoginComponent implements OnInit {
 
     this.processToken(token.token);
   }
-
+ 
   private processToken(token: string){
     var tokenParts = token.split(".");
     if (tokenParts.length != 3)

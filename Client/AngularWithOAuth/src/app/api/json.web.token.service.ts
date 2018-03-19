@@ -28,6 +28,10 @@ export class JwtService {
         .catch(this.handleTokenError);
   }
 
+  removeToken(){
+    this._tokenManagerService.removeToken();
+  }
+
   callTestMethod() : Observable<ITestApiMethodResponse> {
     let url = this._jWTUrl + "test";
 
